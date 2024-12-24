@@ -2,15 +2,15 @@
   <AuthenticatedLayout :translations="translations">
     <!-- Breadcrumb -->
     <div class="pagetitle">
-      <h1>{{ translations.products }}</h1>
+      <h1>{{ translations.accounts }}</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <Link class="nav-link" :href="route('dashboard')">
-              {{ translations.home }}
+              {{ translations.Home }}
             </Link>
           </li>
-          <li class="breadcrumb-item active">{{ translations.products }}</li>
+          <li class="breadcrumb-item active">{{ translations.accounts }}</li>
           <li class="breadcrumb-item active">{{ translations.create }}</li>
         </ol>
       </nav>
@@ -22,7 +22,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">{{ translations.add_new_product }}</h5>
+              <h5 class="card-title">{{ translations.add_new_account }}</h5>
 
               <!-- General Form -->
               <form @submit.prevent="store" class="row g-3">
@@ -248,7 +248,7 @@ const form = useForm({
 
 const store = () => {
   show_loader.value = true;
-  form.post(route('products.store'), {
+  form.post(route('accounts.store'), {
     onSuccess: () => {
       show_loader.value = false;
     },

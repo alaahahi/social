@@ -219,7 +219,7 @@ import InputError from '@/Components/InputError.vue';
 
 
 const props = defineProps({
-  product: Object,
+  account: Object,
   userRoles: Array,
   roles: Object,
   translations:Array
@@ -228,17 +228,17 @@ const props = defineProps({
 const show_loader = ref(false);
 
 const form = useForm({
-  name : props.product.name,
-  model:props.product.model,
-  name:props.product.name,
-  note:props.product.note,
-  oe_number:props.product.oe_number,
-  price_cost:props.product.price_cost,
-  price_with_transport:props.product.price_with_transport,
-  quantity:props.product.quantity,
-  selling_price:props.product.selling_price,
-  situation:props.product.situation,
-  created: props.product.created,
+  name : props.account.name,
+  model:props.account.model,
+  name:props.account.name,
+  note:props.account.note,
+  oe_number:props.account.oe_number,
+  price_cost:props.account.price_cost,
+  price_with_transport:props.account.price_with_transport,
+  quantity:props.account.quantity,
+  selling_price:props.account.selling_price,
+  situation:props.account.situation,
+  created: props.account.created,
   selectedRoles: props.userRoles,
 
 })
@@ -246,7 +246,7 @@ const form = useForm({
 
 const update = () => {
   show_loader.value = true; 
-  form.post(route('products.update', { product: props.product.id }), {
+  form.post(route('accounts.update', { account: props.account.id }), {
     onSuccess: () => {
       show_loader.value = false; 
     },

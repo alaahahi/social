@@ -23,25 +23,14 @@
                </Link>
     </li>
     
-    <li class="nav-item" v-if="hasPermission('read product')">
-    <Link  class="nav-link "  :href="route('products.index')"  :class="{ 'collapsed':  !$page.url.startsWith('/products') }" >
+    <li class="nav-item" v-if="hasPermission('read account')">
+    <Link  class="nav-link "  :href="route('accounts.index')"  :class="{ 'collapsed':  !$page.url.startsWith('/accounts') }" >
             <i class="bi bi-people"></i>
-            <span>{{translations.products  }}</span>
+            <span>{{translations.accounts  }}</span>
                </Link>
     </li>
 
-    <li class="nav-item" v-if="hasPermission('read order')">
-    <Link  class="nav-link "  :href="route('orders.index')"  :class="{ 'collapsed':  !$page.url.startsWith('/orders') }" >
-            <i class="bi bi-people"></i>
-            <span>{{translations.orders  }}</span>
-               </Link>
-    </li>
-    <li class="nav-item" v-if="hasPermission('read boxes')">
-    <Link  class="nav-link "  :href="route('boxes.index')"  :class="{ 'collapsed':  !$page.url.startsWith('/boxes') }" >
-            <i class="bi bi-people"></i>
-            <span>{{translations.box  }}</span>
-               </Link>
-    </li>
+
     <li class="nav-item" >
         <a class="nav-link " data-bs-target="#components-nav" data-bs-toggle="collapse" href="#"  :class="{ 'collapsed':  !$page.url.startsWith('/roles') && !$page.url.startsWith('/permissions') }" >
             <i class="bi bi-lock"></i><span>{{translations.roles_control  }}</span><i class="bi bi-chevron-down ms-auto"></i>

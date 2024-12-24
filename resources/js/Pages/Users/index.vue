@@ -6,13 +6,13 @@
       <h1>{{ translations.users }}</h1>
       <nav>
         <ol class="breadcrumb">
+        
+          <li class="breadcrumb-item active">{{ translations.users }} </li>
           <li class="breadcrumb-item">
-            <Link class="nav-link" :href="route('dashboard')">
+            <Link class="nav-link d-inline" :href="route('dashboard')">
             {{ translations.Home }}
             </Link>
           </li>
-          <li class="breadcrumb-item active">{{ translations.users }} </li>
-
         </ol>
       </nav>
     </div>

@@ -3,7 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\BoxesController;
@@ -42,21 +42,14 @@ Route::middleware(['auth', 'active.session'])->group(function () {
   Route::post('users/{user}/activate', [UsersController::class, 'activate'])->name('activate');
   Route::post('users/{user}', [UsersController::class, 'update'])->name('users.update'); //  inertia does not support send files using put request
 
-  Route::resource('customers', CustomersController::class);
-  Route::post('customers/{customer}/activate', [CustomersController::class, 'activate'])->name('activate');
-  Route::post('customers/{customer}', [CustomersController::class, 'update'])->name('customers.update'); //  inertia does not support send files using put request
 
-  Route::resource('products', ProductController::class);
-  Route::post('products/{product}/activate', [ProductController::class, 'activate'])->name('activate');
-  Route::post('products/{product}', [ProductController::class, 'update'])->name('products.update'); 
-  Route::get('products/trashed', [ProductController::class, 'trashed'])->name('products.trashed');
-  Route::post('products/{id}/restore', [ProductController::class, 'restore'])->name('products.restore');
+  Route::resource('accounts', AccountController::class);
+  Route::post('accounts/{account}/activate', [AccountController::class, 'activate'])->name('activate');
+  Route::post('accounts/{account}', [AccountController::class, 'update'])->name('accounts.update'); 
+  Route::get('accounts/trashed', [AccountController::class, 'trashed'])->name('accounts.trashed');
+  Route::post('accounts/{id}/restore', [AccountController::class, 'restore'])->name('accounts.restore');
 
-  Route::resource('orders', OrderController::class);
-  Route::post('orders/{order}/activate', [OrderController::class, 'activate'])->name('orders.activate');
-  Route::post('orders/{order}', [OrderController::class, 'update'])->name('orders.update');
-  Route::get('orders/trashed', [OrderController::class, 'trashed'])->name('orders.trashed');
-  Route::post('orders/{id}/restore', [OrderController::class, 'restore'])->name('orders.restore');
+
   
 
   Route::resource('permissions', App\Http\Controllers\PermissionController::class);
@@ -81,10 +74,7 @@ Route::middleware(['auth', 'active.session'])->group(function () {
   Route::resource('notification', NotificationController::class)
     ->middleware('auth')
     ->only(['index']);
-
-  Route::resource('boxes', BoxesController::class);
-  Route::post('boxes/{box}/activate', [BoxesController::class, 'activate'])->name('activate');
-  Route::post('boxes/{box}', [BoxesController::class, 'update'])->name('boxes.update'); 
+ 
 
 });
 

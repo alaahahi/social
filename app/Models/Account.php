@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Product extends Model
+class Account extends Model
 {
     use HasFactory, SoftDeletes, HasRoles;
 
