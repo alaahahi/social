@@ -102,6 +102,10 @@ return [
     'pay'=>'Pay',
     'edit_order'=>'Edit order',
     'box'=>'Box',
+    'Login_to_Your_Account'=>'Login to Your Account',
+    'Login'=>'Login',
+    'Remember_me'=>'Remember me'
+
 
 
 ];
