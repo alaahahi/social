@@ -11,6 +11,7 @@ return [
     'permissions' => 'الصلاحيـات',
     'logs' => 'سجل العمليات',
     'users' => 'المستخدميـن',
+    'user_name' => 'اسم المستخدم',
     'create' => 'أضافة جديد',
     'edit' => 'تعـديل',
     'delete' => 'حـذف',
@@ -86,6 +87,6 @@ return [
 'image'=>'صورة',
 'Login_to_Your_Account'=>'تسجيل الدخول إلى حسابك',
 'Login'=>'تسجيل الدخول',
-'Remember_me'=>'تذكرني'
-
+'Remember_me'=>'تذكرني',
+'platform'=>'منصة التواصل الاجتماعي'
 ];

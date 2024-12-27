@@ -11,6 +11,7 @@ return [
     'permissions' => 'Permissions',
     'logs' => 'Logs',
     'users' => 'Users',
+    'user_name' => 'User name',
     'create' => 'Add',
     'edit' => 'Edit',
     'delete' => 'Delete',
@@ -86,8 +87,8 @@ return [
     'image'=>'Image',
     'Login_to_Your_Account'=>'Login to Your Account',
     'Login'=>'Login',
-    'Remember_me'=>'Remember me'
-
+    'Remember_me'=>'Remember me',
+    'platform'=>'Platform'
 
 
 ];

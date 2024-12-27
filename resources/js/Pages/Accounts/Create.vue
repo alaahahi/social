@@ -5,13 +5,19 @@
       <h1>{{ translations.accounts }}</h1>
       <nav>
         <ol class="breadcrumb">
+          <li class="breadcrumb-item active">{{ translations.create }}</li>
+
+          <li class="breadcrumb-item ">
+            <Link class="nav-link d-inline" :href="route('accounts.index')">
+              {{ translations.accounts }}
+            </Link>
+          </li>
+
           <li class="breadcrumb-item">
-            <Link class="nav-link" :href="route('dashboard')">
+            <Link class="nav-link d-inline" :href="route('dashboard')">
               {{ translations.Home }}
             </Link>
           </li>
-          <li class="breadcrumb-item active">{{ translations.accounts }}</li>
-          <li class="breadcrumb-item active">{{ translations.create }}</li>
         </ol>
       </nav>
     </div>
@@ -28,122 +34,29 @@
               <form @submit.prevent="store" class="row g-3">
                 <!-- Product Name -->
                 <div class="row mb-3">
-                  <label for="inputName" class="col-sm-2 col-form-label">{{ translations.name }}</label>
+                  <label for="inputName" class="col-sm-2 col-form-label">{{ translations.user_name }}</label>
                   <div class="col-sm-10">
                     <input
                       id="inputName"
                       type="text"
                       class="form-control"
-                      :placeholder="translations.name"
-                      v-model="form.name"
+                      :placeholder="translations.user_name"
+                      v-model="form.user_name"
                     />
-                    <InputError :message="form.errors.name" />
+                    <InputError :message="form.errors.user_name" />
                   </div>
                 </div>
 
-                <!-- Model -->
+  
                 <div class="row mb-3">
-                  <label for="inputModel" class="col-sm-2 col-form-label">{{ translations.model }}</label>
+                  <label for="inputPassword" class="col-sm-2 col-form-label"> {{ translations.platform }}</label>
                   <div class="col-sm-10">
-                    <input
-                      id="inputModel"
-                      type="text"
-                      class="form-control"
-                      :placeholder="translations.model"
-                      v-model="form.model"
-                    />
-                    <InputError :message="form.errors.model" />
-                  </div>
-                </div>
-
-                <!-- OE Number -->
-                <div class="row mb-3">
-                  <label for="inputOENumber" class="col-sm-2 col-form-label">{{ translations.oe_number }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputOENumber"
-                      type="text"
-                      class="form-control"
-                      :placeholder="translations.oe_number"
-                      v-model="form.oe_number"
-                    />
-                    <InputError :message="form.errors.oe_number" />
-                  </div>
-                </div>
-
-                <!-- Situation -->
-                <div class="row mb-3">
-                  <label for="inputSituation" class="col-sm-2 col-form-label">{{ translations.situation }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputSituation"
-                      type="text"
-                      class="form-control"
-                      :placeholder="translations.situation"
-                      v-model="form.situation"
-                    />
-                    <InputError :message="form.errors.situation" />
-                  </div>
-                </div>
-
-                <!-- price_cost -->
-                <div class="row mb-3">
-                  <label for="inputPrice" class="col-sm-2 col-form-label">{{ translations.price_cost }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputPrice"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.price_cost"
-                      v-model="form.price_cost"
-                    />
-                    <InputError :message="form.errors.price_cost" />
-                  </div>
-                </div>
-    
-
-                 <!-- price_cost -->
-                 <div class="row mb-3">
-                  <label for="inputPrice" class="col-sm-2 col-form-label">{{ translations.price_with_transport }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputPrice"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.price_with_transport"
-                      v-model="form.price_with_transport"
-                    />
-                    <InputError :message="form.errors.price_with_transport" />
-                  </div>
-                </div>
-
-                <!-- price_cost -->
-
-                 <div class="row mb-3">
-                  <label for="inputPrice" class="col-sm-2 col-form-label">{{ translations.selling_price }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputPrice"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.selling_price"
-                      v-model="form.selling_price"
-                    />
-                    <InputError :message="form.errors.selling_price" />
-                  </div>
-                </div>
-                <!-- Quantity -->
-                <div class="row mb-3">
-                  <label for="inputQuantity" class="col-sm-2 col-form-label">{{ translations.quantity }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputQuantity"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.quantity"
-                      v-model="form.quantity"
-                    />
-                    <InputError :message="form.errors.quantity" />
+                    <select name="roles[]" class="form-control border"  v-model="form.selectedPlatform">
+                      <option value="" disabled> {{ translations.roles }}</option>
+                      <option v-for="role in roles" :key="role" :value="role">
+                        {{ role }}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -226,6 +139,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const show_loader = ref(false);
 

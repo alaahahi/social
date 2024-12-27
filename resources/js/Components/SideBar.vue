@@ -16,12 +16,6 @@
                </Link>
     </li>
 
-    <li class="nav-item" v-if="hasPermission('read customers')">
-    <Link  class="nav-link "  :href="route('customers.index')"  :class="{ 'collapsed':  !$page.url.startsWith('/customers') }" >
-            <i class="bi bi-people"></i>
-            <span>{{translations.customers  }}</span>
-               </Link>
-    </li>
     
     <li class="nav-item" v-if="hasPermission('read account')">
     <Link  class="nav-link "  :href="route('accounts.index')"  :class="{ 'collapsed':  !$page.url.startsWith('/accounts') }" >

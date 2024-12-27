@@ -10,6 +10,7 @@ use App\Http\Controllers\BoxesController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SocialMediaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -50,7 +51,8 @@ Route::middleware(['auth', 'active.session'])->group(function () {
   Route::post('accounts/{id}/restore', [AccountController::class, 'restore'])->name('accounts.restore');
 
 
-  
+
+  Route::post('/check-username', [SocialMediaController::class, 'checkUsername'])->name('check.username');
 
   Route::resource('permissions', App\Http\Controllers\PermissionController::class);
   Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
