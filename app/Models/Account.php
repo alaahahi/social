@@ -16,18 +16,15 @@ class Account extends Model
      * Fillable attributes for mass assignment.
      */
     protected $fillable = [
-        'name',
-        'model',
-        'oe_number',
-        'situation',
-        'price_cost',
-        'quantity',
-        'price_with_transport',
-        'selling_price',
-        'balen',
+        'user_name',
+        'platform',
         'note',
-        'image',
+        'created_at',
+        'last_check_date',
+        'times_of_check',
+        'status',
         'created',
+        'image',
         'is_active',
     ];
 

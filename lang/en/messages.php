@@ -72,8 +72,8 @@ return [
     'logs_by_module'=>'logs by module',
     'logs_by_action'=>'logs by action',
     'logs_by_user'=>'logs by user',
-    'accounts'=>'accounts',
-    'account'=>'account',
+    'accounts'=>'Accounts',
+    'account'=>'Account',
     'model'=>'Model',
     'quantity'=>'Quantity',
     'price'=>'Price',
@@ -88,7 +88,11 @@ return [
     'Login_to_Your_Account'=>'Login to Your Account',
     'Login'=>'Login',
     'Remember_me'=>'Remember me',
-    'platform'=>'Platform'
+    'platform'=>'Platform',
+    'last_check_date'=>'Last check date',
+    'times_of_check'=>'Times of check',
+    're_check'=>'Re check'
+
 
 
 ];

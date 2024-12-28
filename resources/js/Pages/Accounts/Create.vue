@@ -32,7 +32,7 @@
 
               <!-- General Form -->
               <form @submit.prevent="store" class="row g-3">
-                <!-- Product Name -->
+              
                 <div class="row mb-3">
                   <label for="inputName" class="col-sm-2 col-form-label">{{ translations.user_name }}</label>
                   <div class="col-sm-10">
@@ -51,10 +51,10 @@
                 <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label"> {{ translations.platform }}</label>
                   <div class="col-sm-10">
-                    <select name="roles[]" class="form-control border"  v-model="form.selectedPlatform">
-                      <option value="" disabled> {{ translations.roles }}</option>
-                      <option v-for="role in roles" :key="role" :value="role">
-                        {{ role }}
+                    <select name="platformList[]" class="form-control border"  v-model="form.platform">
+                      <option value="" disabled> {{ translations.platform }}</option>
+                      <option v-for="platform in platformList" :key="platform" :value="platform">
+                        {{ platform }}
                       </option>
                     </select>
                   </div>
@@ -80,13 +80,13 @@
                       type="date"
                       class="form-control"
                       :placeholder="translations.date"
-                      v-model="form.date"
+                      v-model="form.create"
                     />
                     <InputError :message="form.errors.date" />
                   </div>
                 </div>
                 <!-- Image -->
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <label for="inputImage" class="col-sm-2 col-form-label">{{ translations.image }}</label>
                   <div class="col-sm-10">
                     <input
@@ -102,7 +102,7 @@
                       {{ form.progress.percentage }}%
                     </progress>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- Submit Button -->
                 <div class="text-center">
@@ -144,18 +144,15 @@ import { Link } from '@inertiajs/vue3';
 const show_loader = ref(false);
 
 const props = defineProps({
+
   translations: Object,
 });
+let platformList = ['facebook', 'whatsapp', 'twitter']
 
 const form = useForm({
-  name: '',
-  model: '',
-  oe_number: '',
-  situation: '',
-  price_cost: null,
-  price_with_transport: null,
-  selling_price: null,
-  quantity: null,
+  user_name: '',
+  platform: '',
+  create: '',
   note:'',
   image: null,
 });

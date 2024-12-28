@@ -2,6 +2,8 @@
 
 return [
     'Name_is_required' => 'حقل الاسـم مطـلوب',
+    'User_Name_is_required' => 'حقل الاسـم مطـلوب',
+    'Platform_is_required' => 'حقل منصة التواصل الاجتماعي مطـلوب',
     'Email_is_required' => 'حقل البريد الإلكتروني مطلوب',
     'Email_must_be_a_valid_email_address' => 'يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالحًا',
     'This_email_has_already_been_taken' => 'تم استخدام هذا البريد الإلكتروني بالفعل',

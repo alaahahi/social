@@ -27,13 +27,23 @@
         <div class="card-body">
           <form @submit.prevent="Filter">
             <div class="row filter_form">
-              <div class="col-md-3">
-                <input type="text" class="form-control search_box" v-model="filterForm.name" 
-                  :placeholder="translations.name" />
+              <div class="col-md-2">
+                <input type="text" class="form-control search_box" v-model="filterForm.user_name" 
+                  :placeholder="translations.user_name" />
               </div>
-              <div class="col-md-3">
-                <input type="text" class="form-control search_box" v-model="filterForm.model" 
-                  :placeholder="translations.model" />
+              <div class="col-md-2">
+                <select class="form-select" aria-label="Default select example" v-model="filterForm.platform">
+                  <option value="" selected disabled> {{ translations.platform }}</option>
+                  <option :value="1">{{ translations.active }}</option>
+                  <option :value="0">{{ translations.not_active }} </option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <select class="form-select" aria-label="Default select example" v-model="filterForm.is_active">
+                  <option value="" selected disabled> {{ translations.status }}</option>
+                  <option :value="1">{{ translations.active }}</option>
+                  <option :value="0">{{ translations.not_active }} </option>
+                </select>
               </div>
               <div class="col-md-3">
                 <button type="submit" class="btn btn-primary">
@@ -53,41 +63,53 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{{ translations.name }}</th>
-                  <th scope="col">{{ translations.model }}</th>
-                  <th scope="col">{{ translations.quantity }}</th>
-                  <th scope="col">{{ translations.selling_price }}</th>
+                  <th scope="col">{{ translations.user_name }}</th>
+                  <th scope="col">{{ translations.platform }}</th>
+                  <th scope="col">{{ translations.note }}</th>
                   <th scope="col">{{ translations.created_at }}</th>
+                  <th scope="col">{{ translations.last_check_date }}</th>
+                  <th scope="col">{{ translations.times_of_check }}</th>
                   <th scope="col"> {{ translations.status }}</th>
-                  <th scope="col" v-if="hasPermission('update accounts')">{{ translations.edit }}</th>
-                  <th scope="col" v-if="hasPermission('delete accounts')">{{ translations.delete }}</th>
+                  <th scope="col" v-if="hasPermission('update account')">{{ translations.re_check }}</th>
+                  <th scope="col" v-if="hasPermission('update account')">{{ translations.edit }}</th>
+                  <th scope="col" v-if="hasPermission('delete account')">{{ translations.delete }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(account, index) in accounts?.data" :key="account.id">
                   <th scope="row">{{ index + 1 }}</th>
-                  <td>{{ account.name }}</td>
-                  <td>{{ account.model }}</td>
-                  <td>{{ account.quantity }}</td>
-                  <td>{{ account.selling_price }}</td>
+                  <td>{{ account.user_name }}</td>
+                  <td>{{ account.platform }}</td>
+                  <td>{{ account.note }}</td>
                   <td>{{ account.created }}</td>
+                  <td>{{ account.last_check_date }}</td>
+                  <td>{{ account.times_of_check }}</td>
+
                   <td>
                   <div>
-                    <label class="inline-flex items-center me-5 cursor-pointer">
-                      <input type="checkbox" class="sr-only peer" :checked="account.is_active == 1"
-                        @change="Activate(account.id)">
-                      <div
-                        class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600">
-                      </div>
-                    </label>
+                    <span class="badge bg-warnin fs-6" v-if="account.is_active == 2">
+                      {{ translations.not_active }}
+                    </span>
+                    <span class="badge bg-success fs-6" v-if="account.is_active == 1">
+                      {{ translations.active }}
+                    </span>
+                    <span class="badge bg-danger fs-6"  v-if="account.is_active == 0">
+                      {{ translations.not_active }}
+                    </span>
                   </div>
                   </td>
-                  <td v-if="hasPermission('update accounts')">
+                  <td v-if="hasPermission('update account')">
+                    <a class="btn btn-warning" :href="route('accounts.edit', { account: account.id })">
+                      <i class="bi bi-repeat"></i>
+                    </a>
+                  </td>
+                  <td v-if="hasPermission('update account')">
                     <a class="btn btn-primary" :href="route('accounts.edit', { account: account.id })">
                       <i class="bi bi-pencil-square"></i>
                     </a>
                   </td>
-                  <td v-if="hasPermission('delete accounts')">
+                
+                  <td v-if="hasPermission('delete account')">
                     <button type="button" class="btn btn-danger" @click="Delete(account.id)">
                       <i class="bi bi-trash"></i>
                     </button>

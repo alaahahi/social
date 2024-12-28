@@ -29,124 +29,30 @@
               <!-- General Form Elements -->
 
               <form @submit.prevent="update" class="row g-3" method="POST">
-  <!-- Product Name -->
-  <div class="row mb-3">
-                  <label for="inputName" class="col-sm-2 col-form-label">{{ translations.name }}</label>
+                <div class="row mb-3">
+                  <label for="inputName" class="col-sm-2 col-form-label">{{ translations.user_name }}</label>
                   <div class="col-sm-10">
                     <input
                       id="inputName"
                       type="text"
                       class="form-control"
-                      :placeholder="translations.name"
-                      v-model="form.name"
+                      :placeholder="translations.user_name"
+                      v-model="form.user_name"
                     />
-                    <InputError :message="form.errors.name" />
+                    <InputError :message="form.errors.user_name" />
                   </div>
                 </div>
 
-                <!-- Model -->
+  
                 <div class="row mb-3">
-                  <label for="inputModel" class="col-sm-2 col-form-label">{{ translations.model }}</label>
+                  <label for="inputPassword" class="col-sm-2 col-form-label"> {{ translations.platform }}</label>
                   <div class="col-sm-10">
-                    <input
-                      id="inputModel"
-                      type="text"
-                      class="form-control"
-                      :placeholder="translations.model"
-                      v-model="form.model"
-                    />
-                    <InputError :message="form.errors.model" />
-                  </div>
-                </div>
-
-                <!-- OE Number -->
-                <div class="row mb-3">
-                  <label for="inputOENumber" class="col-sm-2 col-form-label">{{ translations.oe_number }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputOENumber"
-                      type="text"
-                      class="form-control"
-                      :placeholder="translations.oe_number"
-                      v-model="form.oe_number"
-                    />
-                    <InputError :message="form.errors.oe_number" />
-                  </div>
-                </div>
-
-                <!-- Situation -->
-                <div class="row mb-3">
-                  <label for="inputSituation" class="col-sm-2 col-form-label">{{ translations.situation }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputSituation"
-                      type="text"
-                      class="form-control"
-                      :placeholder="translations.situation"
-                      v-model="form.situation"
-                    />
-                    <InputError :message="form.errors.situation" />
-                  </div>
-                </div>
-
-                <!-- price_cost -->
-                <div class="row mb-3">
-                  <label for="inputPrice" class="col-sm-2 col-form-label">{{ translations.price_cost }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputPrice"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.price_cost"
-                      v-model="form.price_cost"
-                    />
-                    <InputError :message="form.errors.price_cost" />
-                  </div>
-                </div>
-    
-
-                 <!-- price_cost -->
-                 <div class="row mb-3">
-                  <label for="inputPrice" class="col-sm-2 col-form-label">{{ translations.price_with_transport }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputPrice"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.price_with_transport"
-                      v-model="form.price_with_transport"
-                    />
-                    <InputError :message="form.errors.price_with_transport" />
-                  </div>
-                </div>
-
-                <!-- price_cost -->
-
-                 <div class="row mb-3">
-                  <label for="inputPrice" class="col-sm-2 col-form-label">{{ translations.selling_price }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputPrice"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.selling_price"
-                      v-model="form.selling_price"
-                    />
-                    <InputError :message="form.errors.selling_price" />
-                  </div>
-                </div>
-                <!-- Quantity -->
-                <div class="row mb-3">
-                  <label for="inputQuantity" class="col-sm-2 col-form-label">{{ translations.quantity }}</label>
-                  <div class="col-sm-10">
-                    <input
-                      id="inputQuantity"
-                      type="number"
-                      class="form-control"
-                      :placeholder="translations.quantity"
-                      v-model="form.quantity"
-                    />
-                    <InputError :message="form.errors.quantity" />
+                    <select name="platformList[]" class="form-control border"  v-model="form.platform">
+                      <option value="" disabled> {{ translations.platform }}</option>
+                      <option v-for="platform in platformList" :key="platform" :value="platform">
+                        {{ platform }}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -170,31 +76,50 @@
                       type="date"
                       class="form-control"
                       :placeholder="translations.date"
-                      v-model="form.created"
+                      v-model="form.create"
                     />
-                    <InputError :message="form.errors.created" />
+                    <InputError :message="form.errors.date" />
                   </div>
                 </div>
-
-                <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">{{ translations.image }}</label>
+                <!-- Image -->
+                <!-- <div class="row mb-3">
+                  <label for="inputImage" class="col-sm-2 col-form-label">{{ translations.image }}</label>
                   <div class="col-sm-10">
-                    <input type="file" @input="form.image = $event.target.files[0]" />
-                    <img v-if="props.user?.image" :src="props.user.image" alt="Current Avatar" class="img-thumbnail"  width="80" />
-                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                    <input
+                      id="inputImage"
+                      type="file"
+                      @input="form.image = $event.target.files[0]"
+                    />
+                    <progress
+                      v-if="form.progress"
+                      :value="form.progress.percentage"
+                      max="100"
+                    >
                       {{ form.progress.percentage }}%
                     </progress>
                   </div>
-                </div>
+                </div> -->
 
-
+                <!-- Submit Button -->
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary" v-bind:disabled="show_loader">{{ translations.update }} &nbsp; <i class="bi bi-save"  v-if="!show_loader"></i>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="show_loader"></span>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    :disabled="show_loader"
+                  >
+                    {{ translations.save }}
+                    <i
+                      class="bi bi-save"
+                      v-if="!show_loader"
+                    ></i>
+                    <span
+                      class="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                      v-if="show_loader"
+                    ></span>
                   </button>
                 </div>
-
-
               </form>
               <!-- End Edit User From -->
             </div>
@@ -217,30 +142,20 @@ import { computed } from 'vue'
 import { ref } from 'vue';
 import InputError from '@/Components/InputError.vue';
 
+let platformList = ['facebook', 'whatsapp', 'twitter']
 
 const props = defineProps({
   account: Object,
-  userRoles: Array,
-  roles: Object,
   translations:Array
 })
 
 const show_loader = ref(false);
 
 const form = useForm({
-  name : props.account.name,
-  model:props.account.model,
-  name:props.account.name,
+  user_name : props.account.user_name,
+  platform:props.account.platform,
   note:props.account.note,
-  oe_number:props.account.oe_number,
-  price_cost:props.account.price_cost,
-  price_with_transport:props.account.price_with_transport,
-  quantity:props.account.quantity,
-  selling_price:props.account.selling_price,
-  situation:props.account.situation,
   created: props.account.created,
-  selectedRoles: props.userRoles,
-
 })
 
 

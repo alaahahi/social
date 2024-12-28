@@ -2,6 +2,8 @@
 
 return [
     'Name_is_required' => 'Name is required',
+    'User_Name_is_required' => 'User Name is required',
+    'Platform_is_required' => 'Platform is required',
     'Email_is_required' => 'Email is required',
     'Email_must_be_a_valid_email_address' => 'Email must be a valid email address',
     'This_email_has_already_been_taken' => 'This email has already been taken',

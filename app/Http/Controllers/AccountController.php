@@ -6,8 +6,8 @@ use App\Models\Account;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
-use App\Http\Requests\Account\StoreAccountRequest;
-use App\Http\Requests\Account\UpdateAccountRequest;
+use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 use Carbon\Carbon;
 
 class AccountController extends Controller
@@ -31,20 +31,20 @@ class AccountController extends Controller
 
         // Define the filters
         $filters = [
-            'name' => $request->name,
-            'model' => $request->model,
+            'user_name' => $request->user_name,
+            'platform' => $request->platform,
             'is_active' => $request->is_active,
         ];
         // Start the Account query
         $AccountQuery = Account::with('roles')->latest();
 
         // Apply the filters if they exist
-        $AccountQuery->when($filters['name'], function ($query, $name) {
-            return $query->where('name', 'LIKE', "%{$name}%");
+        $AccountQuery->when($filters['user_name'], function ($query, $user_name) {
+            return $query->where('user_name', 'LIKE', "%{$user_name}%");
         });
 
-        $AccountQuery->when($filters['model'], function ($query, $model) {
-            return $query->where('model', 'LIKE', "%{$model}%");
+        $AccountQuery->when($filters['platform'], function ($query, $platform) {
+            return $query->where('platform', 'LIKE', "%{$platform}%");
         });
 
 
@@ -78,18 +78,13 @@ class AccountController extends Controller
     {
         // Create account instance and assign validated data
         $account = new Account([
-            'name' => $request->name,
-            'model'=>$request->model,
-            'name'=>$request->name,
+            'user_name' => $request->user_name,
+            'platform'=>$request->platform,
             'note'=>$request->note,
-            'oe_number'=>$request->oe_number,
-            'price_cost'=>$request->price_cost,
-            'price_with_transport'=>$request->price_with_transport,
-            'quantity'=>$request->quantity,
-            'selling_price'=>$request->selling_price,
-            'situation'=>$request->situation,
+            'last_check_date'=>Carbon::now()->format('Y-m-d'),
             'created' =>Carbon::now()->format('Y-m-d'),
-            'image' => $request->image ? $request->image : 'accounts/default_account.png',
+            'times_of_check'=>1
+            // 'image' => $request->image ? $request->image : 'accounts/default_account.png',
         ]);
     
         // Handle account upload if a file is provided
@@ -125,13 +120,9 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
-        $roles = Role::pluck('name', 'name')->all();
-        $accountRoles = $account->roles->pluck('name')->all();
         return Inertia('Accounts/Edit', [
             'translations' => __('messages'),
             'account' => $account,
-            'roles' => $roles,
-            'accountRoles' => $accountRoles
         ]);
     }
 
@@ -147,8 +138,13 @@ class AccountController extends Controller
             $account->image = $path; // Update the account's avatar path
         }
     
+        // Increment the times_of_check field by 1
+        $account->times_of_check = $account->times_of_check + 1;
+
         // Update account information, including avatar and other fields, in a single save operation
-        $account->update($request->validated());
+        $account->update(array_merge($request->validated(), [
+            'times_of_check' => $account->times_of_check,
+        ]));
     
         // Sync roles if any
         //$account->syncRoles($request->selectedRoles);

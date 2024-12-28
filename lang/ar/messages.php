@@ -88,5 +88,8 @@ return [
 'Login_to_Your_Account'=>'تسجيل الدخول إلى حسابك',
 'Login'=>'تسجيل الدخول',
 'Remember_me'=>'تذكرني',
-'platform'=>'منصة التواصل الاجتماعي'
+'platform'=>'منصة التواصل الاجتماعي',
+'last_check_date'=>'تاريخ اخر فحص',
+'times_of_check'=>'مرات الفحص',
+'re_check'=>'فحص'
 ];
