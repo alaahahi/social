@@ -147,7 +147,7 @@ const props = defineProps({
 
   translations: Object,
 });
-let platformList = ['facebook', 'whatsapp', 'twitter']
+let platformList = ['facebook', 'instagram', 'twitter']
 
 const form = useForm({
   user_name: '',

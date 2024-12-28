@@ -36,19 +36,12 @@ class Log extends Model
         );
     }
 
-    public function product(): BelongsTo
+    public function account(): BelongsTo
     {
         return $this->belongsTo(
-            \App\Models\Product::class,
+            \App\Models\Account::class,
             'affected_record_id'
         );
     }
 
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(
-            \App\Models\Customer::class,
-            'affected_record_id'
-        );
-    }
 }

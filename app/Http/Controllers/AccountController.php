@@ -9,6 +9,10 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Crypt;
+use GuzzleHttp\Client;
+use Symfony\Component\DomCrawler\Crawler;
 
 class AccountController extends Controller
 {
@@ -140,6 +144,17 @@ class AccountController extends Controller
     
         // Increment the times_of_check field by 1
         $account->times_of_check = $account->times_of_check + 1;
+        $account->last_check_date = Carbon::now()->format('Y-m-d');
+
+        $result = $this->checkUsernameExists($request->platform,$request->user_name,);
+
+        if($result['status']=='Username exists'){
+            $account->is_active=1;
+        }elseif($result['status']=='Username does not exist'){
+            $account->is_active=0;
+        }else{
+            $account->is_active=0;
+        }
 
         // Update account information, including avatar and other fields, in a single save operation
         $account->update(array_merge($request->validated(), [
@@ -150,7 +165,7 @@ class AccountController extends Controller
         //$account->syncRoles($request->selectedRoles);
     
         return redirect()->route('accounts.index')
-            ->with('success', __('messages.data_updated_successfully'));
+            ->with('success', $result);
     }
     
 
@@ -193,5 +208,88 @@ class AccountController extends Controller
 
         return redirect()->route('accounts.index')
             ->with('success', __('messages.account_restored_successfully'));
+    }
+
+    private function checkTwitterUsername($username)
+    {
+        $client = new Client();
+        $bearerToken = env('TWITTER_BEARER_TOKEN');
+        $url = "https://api.twitter.com/2/users/by/username/$username";
+    
+        try {
+            $response = $client->request('GET', $url, [
+                'headers' => [
+                    'Authorization' => "Bearer $bearerToken",
+                ],
+            ]);
+    
+            // If response is successful, user exists
+            if ($response->getStatusCode() == 200) {
+                $userData = json_decode($response->getBody()->getContents(), true);
+                return [
+                    'status' => "Username exists",
+                    'platform' => 'twitter',
+                    'username' => $userData['data']['username'] ?? '',
+                    'name' => $userData['data']['name'] ?? '',
+                ];
+            }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            if ($e->getResponse()->getStatusCode() == 404) {
+                return [
+                    'status' =>  "Username does not exist",
+                    'message' => "The username @$username does not exist or has been removed on Twitter.",
+                ];
+            }
+            return [
+                'status' =>  "Username does not exist 404",
+                'uhwwwqwhhhhhhhhhhhmmm' => "An error occurred: " . $e->getMessage(),
+            ];
+        }
+    }
+    
+    private function checkUsernameExists($platform, $username)
+    {
+        $client = new Client();
+        $url = '';
+    
+        switch ($platform) {
+            case 'facebook':
+                $url = "https://www.facebook.com/$username";
+                break;
+            case 'instagram':
+                $url = "https://www.instagram.com/$username";
+                break;
+            case 'twitter':
+                // Use Twitter API method for Twitter
+                return $this->checkTwitterUsername($username);
+            default:
+                return "Unsupported platform.";
+        }
+    
+        try {
+            $response = $client->request('GET', $url);
+    
+            if ($response->getStatusCode() === 200) {
+                $html = $response->getBody()->getContents();
+                $crawler = new Crawler($html);
+    
+
+                return [
+                    'status' => "Username exists",
+                    'title' => $crawler->filter('meta[property="og:title"]')->attr('content') ?? 'N/A',
+                    'description' => $crawler->filter('meta[property="og:description"]')->attr('content') ?? 'N/A',
+                    'image' => $crawler->filter('meta[property="og:image"]')->attr('content') ?? 'N/A',
+                ];
+            } else {
+                return [
+                    'status' => "Username does not exist",
+                ];
+            }
+        } catch (\Exception $e) {
+            return [
+                'status' => "Username does not exist 404 ",
+            ];
+        }
+
     }
 }

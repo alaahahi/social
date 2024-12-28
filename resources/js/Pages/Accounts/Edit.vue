@@ -68,7 +68,7 @@
                     <InputError :message="form.errors.note" />
                   </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <label for="inputdate" class="col-sm-2 col-form-label">{{ translations.date }}</label>
                   <div class="col-sm-10">
                     <input
@@ -80,7 +80,7 @@
                     />
                     <InputError :message="form.errors.date" />
                   </div>
-                </div>
+                </div> -->
                 <!-- Image -->
                 <!-- <div class="row mb-3">
                   <label for="inputImage" class="col-sm-2 col-form-label">{{ translations.image }}</label>
@@ -142,7 +142,7 @@ import { computed } from 'vue'
 import { ref } from 'vue';
 import InputError from '@/Components/InputError.vue';
 
-let platformList = ['facebook', 'whatsapp', 'twitter']
+let platformList = ['facebook', 'instagram', 'twitter']
 
 const props = defineProps({
   account: Object,

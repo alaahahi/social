@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
+use App\Models\Account;
 use App\Observers\PermissionObserver;
 use App\Observers\RoleObserver;
 use App\Observers\UserObserver;
+use App\Observers\AccountObserver;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\App;
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserObserver::class);
+        Account::observe(AccountObserver::class);
         Role::observe(RoleObserver::class);
         Permission::observe(PermissionObserver::class);
         App::setLocale(Session::get('locale', config('app.locale')));
